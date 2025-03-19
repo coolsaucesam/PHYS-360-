@@ -26,9 +26,9 @@ k = (8 * np.pi * A * D**2) / (B + D)
 
 # Calculate the uncertainty in k
 uncertainty_in_k = np.sqrt(
-    ( (8*np.pi * D**2) / (B + D) * deltaA) ** 2 +
-    ( (8*np.pi * A * D**2) / (B+D**2) * deltaB) ** 2 +
-    ( (8*np.pi * A * D * (2*B + D))/((B+D)**2) * deltaD) ** 2)
+    ( (8*np.pi * D**2) / (B + D) * deltaA)**2 +
+    ( (8*np.pi * A * D**2) / (B+D**2) * deltaB)**2 +
+    ( (8*np.pi * A * D * (2*B + D))/((B+D)**2) * deltaD)**2)
 
 # Equation from lab
 def return_c(rev, deflection):
@@ -59,6 +59,7 @@ uncertainty_in_c = np.sqrt(
     (k/((params[0])**2) *(np.sqrt(np.diag(cov)))[0])**2 +
     (1/(params[0]*uncertainty_in_k)**2)
     )
+
     
 print(uncertainty_in_c)
 exp_c = k/params[0]
@@ -68,7 +69,7 @@ print(f"Speed of light from fit: {k / params[0]:.3e} plus/minus {uncertainty_in_
 print('percent error in c', round(uncertainty_in_c/exp_c, 5))
 
 # Plot the results with uncertainties
-X = np.linspace(-1000, 1000, 100)
+X = np.linspace(min(rev), max(rev), 100)
 fig, ax = plt.subplots()
 # Plot the linear fit
 ax.scatter(rev, deflection, color='blue')
